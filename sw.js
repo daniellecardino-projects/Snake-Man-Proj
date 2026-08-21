@@ -1,5 +1,4 @@
-const CACHE_NAME =
-    "snake-man-cyberpunk-v2";
+const CACHE_NAME = "snake-man-cyberpunk-v3";
 
 const FILES = [
     "./",
@@ -8,80 +7,39 @@ const FILES = [
     "./icon.png"
 ];
 
+self.addEventListener("install", event => {
 
-self.addEventListener(
-    "install",
-    event => {
+    event.waitUntil(
+        caches.open(CACHE_NAME)
+            .then(cache => cache.addAll(FILES))
+            .then(() => self.skipWaiting())
+    );
+});
 
-        event.waitUntil(
+self.addEventListener("activate", event => {
 
-            caches
-                .open(CACHE_NAME)
-                .then(
-                    cache =>
-                        cache.addAll(FILES)
-                )
-
-        );
-
-        self.skipWaiting();
-    }
-);
-
-
-self.addEventListener(
-    "activate",
-    event => {
-
-        event.waitUntil(
-
-            caches.keys()
-                .then(
-                    keys =>
-                        Promise.all(
-                            keys
-                                .filter(
-                                    key =>
-                                        key !==
-                                        CACHE_NAME
-                                )
-                                .map(
-                                    key =>
-                                        caches.delete(key)
-                                )
-                        )
-                )
-
-        );
-
-        self.clients.claim();
-    }
-);
-
-
-self.addEventListener(
-    "fetch",
-    event => {
-
-        event.respondWith(
-
-            caches.match(
-                event.request
+    event.waitUntil(
+        caches.keys().then(keys =>
+            Promise.all(
+                keys
+                    .filter(key => key !== CACHE_NAME)
+                    .map(key => caches.delete(key))
             )
-            .then(
-                cached => {
+        ).then(() => self.clients.claim())
+    );
+});
 
-                    if (cached) {
-                        return cached;
-                    }
+self.addEventListener("fetch", event => {
 
-                    return fetch(
-                        event.request
-                    );
+    event.respondWith(
+        caches.match(event.request)
+            .then(cached => {
 
+                if(cached){
+                    return cached;
                 }
-            )
 
-        );
-    }
-);
+                return fetch(event.request);
+            })
+    );
+});
