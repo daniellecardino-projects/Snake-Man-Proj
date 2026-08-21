@@ -1,18 +1,18 @@
 {
-    "name": "Snake-Man: Cyberpunk Bomber Edition",
-    "short_name": "Snake-Man",
-    "description": "A neon cyberpunk fusion of Snake, Pac-Man and Bomberman.",
-    "start_url": "./index.html",
-    "display": "standalone",
-    "orientation": "any",
-    "background_color": "#05050d",
-    "theme_color": "#00f6ff",
-    "icons": [
-        {
-            "src": "icon.png",
-            "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "any maskable"
-        }
-    ]
+  "name": "Snake-Man: Cyberpunk Bomber Edition",
+  "short_name": "Snake-Man",
+  "description": "A neon cyberpunk Snake, Pac-Man and Bomberman arcade game.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#05030d",
+  "theme_color": "#05030d",
+  "icons": [
+    {
+      "src": "./icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }
